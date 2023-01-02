@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+  <title>Albert's Photo Journal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+</head>
+<body class="bg-black">
+
+  <div id="app" class="w-full p-4">
+
+    <div id="images" class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4 font-sans">
+
+      <div v-for="image in images" class="bg-white/5">
+        <div
+          class="aspect-square bg-cover bg-center p-2"
+          v-bind:style="{backgroundImage:'url(' + image.image_url + ')'}">
+          <div class="text-xs text-gray-300 p-2 w-fit bg-black/20 rounded-2xl">{{ image.timestamp }}</div>
+        </div>
+        <div>
+          <p class="text-blue-200 p-2 overflow-hidden">
+            {{ image.caption }}
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // URL to the JSON data of the Google Spreadsheet
+    var data_endpoint = "https://photo-journal-backend.azurewebsites.net/api/getjournalimages";
+  
+    // Global variables to hold the data
+    var imageList = [];
+    
+    // Load data when the page is ready
+    var app = new Vue({
+      el: '#app',
+      data () {
+        return {
+          images: null
+        }
+      },
+      mounted () {
+        axios
+          .get(data_endpoint)
+          .then(response => {
+            this.images = response.data;
+            console.log(this.images)
+          })
+      }
+    });
+
+  </script>
+
+</body>
+</html>
