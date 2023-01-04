@@ -16,11 +16,13 @@
 
       <div v-for="image in images" class="bg-white/5">
         <div
-          class="aspect-square bg-cover bg-center p-2"
+          class="aspect-square bg-cover bg-center p-2 rounded-2xl"
           v-bind:style="{backgroundImage:'url(' + image.image_url + ')'}">
-          <div class="text-xs text-gray-300 p-2 w-fit bg-black/20 rounded-2xl font-bold">{{ image.timestamp }}</div>
+          <div class="flex text-xs text-gray-200 p-2 w-fit bg-black/50 rounded-2xl font-bold">
+            {{ image.timestamp }}
+          </div>
         </div>
-        <div>
+        <div class="bg-gray-900 flex">
           <p class="text-blue-200 p-2 overflow-hidden">
             {{ image.caption }}
           </p>
